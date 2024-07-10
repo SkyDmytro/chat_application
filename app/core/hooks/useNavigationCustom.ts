@@ -14,7 +14,7 @@ type ParamsType = {
 export const useNavigationCustom = () => {
   const navigation: NavigationProp<ParamListBase> = useNavigation();
 
-  const navigateToScreen = (screenName: ScreenName, params: ParamsType) => {
+  const navigateToScreen = (screenName: ScreenName, params?: ParamsType) => {
     navigation.navigate(screenName, params);
   };
 

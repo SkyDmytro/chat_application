@@ -39,12 +39,10 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
   const [filteredChats, setFilteredChats] = useState<chatType[]>(chats);
 
   return (
-    // <LayoutBottomTabNavigation navigation={navigation}>
     <View style={styles.screen}>
       <SearchBar onFilterChats={setFilteredChats} chats={chats} />
       <ChatList chats={filteredChats} />
     </View>
-    // </LayoutBottomTabNavigation>
   );
 };
 
@@ -54,7 +52,6 @@ const styles = StyleSheet.create({
     paddingTop: 40,
     margin: 10,
     flex: 1,
-    // justifyContent: "space-between",
   },
 });
 export default HomeScreen;
