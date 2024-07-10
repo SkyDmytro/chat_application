@@ -3,6 +3,8 @@ import { Pressable, View, Text, StyleSheet } from "react-native";
 import { chatType } from "../core/types/chatTypes";
 import { useNavigationCustom } from "../core/hooks/useNavigationCustom";
 
+import { AvatarIcon } from "./AvatarIcon";
+
 interface ChatListItemProps {
   chat: chatType;
 }
@@ -17,7 +19,17 @@ export const ChatListItem = ({ chat }: ChatListItemProps) => {
   return (
     <Pressable onPress={onPressFunction}>
       <View style={styles.container}>
-        <Text style={styles.text}>{chat.chatName}</Text>
+        <AvatarIcon text={chat.chatName} onPress={() => console.log(1321)} />
+        <View>
+          <Text style={styles.text}>
+            {chat.chatName +
+              " " +
+              chat.participants
+                .map((participant) => participant.username)
+                .join(", ")}
+          </Text>
+          <Text>Some Message</Text>
+        </View>
       </View>
     </Pressable>
   );
@@ -25,10 +37,11 @@ export const ChatListItem = ({ chat }: ChatListItemProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    borderWidth: 1,
-    borderColor: "black",
+    display: "flex",
+    flexDirection: "row",
+    gap: 15,
+    alignItems: "center",
     borderRadius: 8,
-    borderStyle: "solid",
     padding: 10,
   },
   text: {
