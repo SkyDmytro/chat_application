@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { Text, View, StyleSheet } from "react-native";
 import { StyledView } from "../shared/StyledView";
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
@@ -6,6 +6,11 @@ import { chatType } from "../core/types/chatTypes";
 import { userType } from "../core/types/userTypes";
 import { ChatList } from "../shared/ChatList";
 import { SearchBar } from "../shared/SearchBar";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../core/store";
+import { addChat, initializeChats } from "../core/reduxSlices/chatsSlice";
+import { addUser, initializeUsers } from "../core/reduxSlices/usersSlice";
+import { useFilterChatsByUser } from "../core/hooks/useFilterChatsByUser";
 
 interface HomeScreenProps {
   navigation: NavigationProp<ParamListBase>;
@@ -17,6 +22,10 @@ const user1: userType = {
 const user2: userType = {
   id: "2",
   username: "Oleg",
+};
+const user3: userType = {
+  id: "3",
+  username: "Valeriy",
 };
 const chats: chatType[] = [
   {
@@ -34,13 +43,24 @@ const chats: chatType[] = [
     id: "3",
     participants: [user1, user2],
   },
+  {
+    chatName: "Fourth Chat",
+    id: "4",
+    participants: [user1, user3],
+  },
 ];
 const HomeScreen = ({ navigation }: HomeScreenProps) => {
-  const [filteredChats, setFilteredChats] = useState<chatType[]>(chats);
+  const dispatch: AppDispatch = useDispatch();
+  dispatch(initializeUsers([user1, user2]));
+  dispatch(initializeChats(chats));
+  const filteredChatsByUser = useFilterChatsByUser();
+  console.log(filteredChatsByUser, 1);
+  const [filteredChats, setFilteredChats] =
+    useState<chatType[]>(filteredChatsByUser);
 
   return (
     <View style={styles.screen}>
-      <SearchBar onFilterChats={setFilteredChats} chats={chats} />
+      <SearchBar onFilterChats={setFilteredChats} chats={filteredChatsByUser} />
       <ChatList chats={filteredChats} />
     </View>
   );
