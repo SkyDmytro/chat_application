@@ -14,7 +14,7 @@ export const LayoutBottomTabNavigation = ({
   const goToHomeScreen = () => navigation.navigate("Home");
   const goToProfileScreen = () => navigation.navigate("Profile");
   return (
-    <View>
+    <View style={styles.screen}>
       {children}
       <View style={styles.buttonContainer}>
         <Button title="Home" onPress={goToHomeScreen} />
@@ -26,8 +26,11 @@ export const LayoutBottomTabNavigation = ({
 
 const styles = StyleSheet.create({
   screen: {
-    height: "100%",
-    width: "100%",
+    fontSize: 24,
+    paddingTop: 40,
+    margin: 10,
+    flex: 1,
+    justifyContent: "space-between",
   },
   container: {
     flex: 1,
@@ -35,6 +38,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   buttonContainer: {
+    position: "static",
+    bottom: 0,
     flexDirection: "row",
     justifyContent: "space-around",
     width: "100%",
