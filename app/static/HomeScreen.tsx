@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { Text, View } from "react-native";
+import { Text, View, StyleSheet } from "react-native";
 import { StyledView } from "../shared/StyledView";
-import { LayoutBottomTabNavigation } from "../shared/LayoutBottomTabNavigation";
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import { chatType } from "../core/types/chatTypes";
 import { userType } from "../core/types/userTypes";
@@ -40,13 +39,22 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
   const [filteredChats, setFilteredChats] = useState<chatType[]>(chats);
 
   return (
-    <LayoutBottomTabNavigation navigation={navigation}>
-      <View>
-        <SearchBar onFilterChats={setFilteredChats} chats={chats} />
-        <ChatList chats={filteredChats} />
-      </View>
-    </LayoutBottomTabNavigation>
+    // <LayoutBottomTabNavigation navigation={navigation}>
+    <View style={styles.screen}>
+      <SearchBar onFilterChats={setFilteredChats} chats={chats} />
+      <ChatList chats={filteredChats} />
+    </View>
+    // </LayoutBottomTabNavigation>
   );
 };
 
+const styles = StyleSheet.create({
+  screen: {
+    fontSize: 24,
+    paddingTop: 40,
+    margin: 10,
+    flex: 1,
+    // justifyContent: "space-between",
+  },
+});
 export default HomeScreen;

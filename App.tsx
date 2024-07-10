@@ -11,12 +11,10 @@ import { Provider, useSelector } from "react-redux";
 const Stack = createNativeStackNavigator<RootStackParamList>();
 export type RootStackParamList = {
   Home: undefined;
-  Chat: { chatId: string };
+  Chat: { chatId: string; chatName: string };
 };
 
 const Navigation = () => {
-  const { routeName, params } = useSelector((state: any) => state.navigation);
-  console.log(params);
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
@@ -29,8 +27,7 @@ const Navigation = () => {
         <Stack.Screen
           name="Chat"
           component={ChatScreen}
-          initialParams={params}
-          options={() => ({ title: params.chatId })}
+          options={({ route }) => ({ title: route.params.chatName })}
         />
       </Stack.Navigator>
     </NavigationContainer>

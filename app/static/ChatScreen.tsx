@@ -3,14 +3,13 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { RootStackParamList } from "../../App";
 
-type ChatScreenRouteProp = RouteProp<RootStackParamList, "Chat">;
+export type ChatScreenRouteProp = RouteProp<RootStackParamList, "Chat">;
 
 interface ChatScreenProps {
   route: ChatScreenRouteProp;
 }
 const ChatScreen = ({ route }: ChatScreenProps) => {
   const { chatId } = route.params;
-
   return (
     <View style={styles.container}>
       <Text>Chat Screen</Text>
