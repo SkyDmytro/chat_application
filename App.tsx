@@ -5,6 +5,8 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { View, StyleSheet } from "react-native";
 import ChatScreen from "./app/static/ChatScreen";
 import { RouteProp } from "@react-navigation/native";
+import store from "./app/core/store";
+import { Provider, useSelector } from "react-redux";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 export type RootStackParamList = {
@@ -12,7 +14,9 @@ export type RootStackParamList = {
   Chat: { chatId: string };
 };
 
-export default function App() {
+const Navigation = () => {
+  const { routeName, params } = useSelector((state: any) => state.navigation);
+  console.log(params);
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
@@ -25,9 +29,18 @@ export default function App() {
         <Stack.Screen
           name="Chat"
           component={ChatScreen}
-          options={({ route }) => ({ title: route.params.chatId })}
+          initialParams={params}
+          options={() => ({ title: params.chatId })}
         />
       </Stack.Navigator>
     </NavigationContainer>
+  );
+};
+
+export default function App() {
+  return (
+    <Provider store={store}>
+      <Navigation />
+    </Provider>
   );
 }
