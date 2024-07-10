@@ -3,22 +3,21 @@ import { chatType } from "../types/chatTypes";
 import { userType } from "../types/userTypes";
 
 interface SettingsState {
-  currentUser: userType;
+  currentUserId: string;
+  currentUserName: string;
 }
 
 const initialState: SettingsState = {
-  currentUser: {
-    id: "1",
-    username: "Dima",
-  },
+  currentUserId: "3",
+  currentUserName: "Valeriy",
 };
 
 const settingsSlice = createSlice({
   name: "settings",
   initialState,
   reducers: {
-    updateCurrentUser: (state, action: PayloadAction<userType>) => {
-      state.currentUser = action.payload;
+    updateCurrentUser: (state, action: PayloadAction<string>) => {
+      state.currentUserId = action.payload;
     },
   },
 });

@@ -15,7 +15,6 @@ export const SearchBar: React.FC<SearchBarProps> = ({
   onFilterChats,
 }) => {
   const handleInputChange = (searchText: string) => {
-    console.log(searchText);
     const filteredChats = chats.filter((chat) =>
       chat.chatName.toLowerCase().includes(searchText.toLowerCase())
     );
@@ -36,6 +35,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: "#f0f0f0",
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   input: {
-    flex: 1,
+    width: "100%",
     marginLeft: 10,
     fontSize: 16,
     color: "#333",
