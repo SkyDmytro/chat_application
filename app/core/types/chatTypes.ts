@@ -5,4 +5,11 @@ export interface chatType {
   chatName: string;
   participants: userType[];
   creator: userType;
+  messages: messageType[];
+}
+
+export interface messageType {
+  text: string;
+  sender: userType;
+  timeWhenSended: number;
 }
