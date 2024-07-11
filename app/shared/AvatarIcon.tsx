@@ -1,12 +1,12 @@
 import React from "react";
-import { Avatar } from "react-native-elements";
+import { Avatar, AvatarProps } from "react-native-elements";
 
-interface AvatarIconProps {
+type AvatarIconProps = {
   onPress: () => void;
   text: string;
-}
+} & AvatarProps;
 
-export const AvatarIcon = ({ onPress, text }: AvatarIconProps) => {
+export const AvatarIcon = ({ onPress, text, ...props }: AvatarIconProps) => {
   const getInitials = (text: string) => {
     const names = text.split(" ");
     const initials = names.map((name) => name.charAt(0)).join("");
@@ -21,6 +21,7 @@ export const AvatarIcon = ({ onPress, text }: AvatarIconProps) => {
       overlayContainerStyle={{ backgroundColor: "#ccc" }}
       onPress={onPress}
       activeOpacity={0.7}
+      {...props}
     />
   );
 };
