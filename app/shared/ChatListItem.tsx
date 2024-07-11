@@ -4,13 +4,21 @@ import { chatType } from "../core/types/chatTypes";
 import { useNavigationCustom } from "../core/hooks/useNavigationCustom";
 
 import { AvatarIcon } from "./AvatarIcon";
+import { useIsUserCreatedCurrentChat } from "../core/hooks/useIsUserCreatedCurrentChat";
+import { DeleteIcon } from "./DeleteIconButton";
 
 interface ChatListItemProps {
   chat: chatType;
+  onDelete: (chatId: string) => void;
 }
 
-export const ChatListItem = ({ chat }: ChatListItemProps) => {
+export const ChatListItem = ({ chat, onDelete }: ChatListItemProps) => {
   const { navigateToScreen } = useNavigationCustom();
+  const isUserCreatedChat = useIsUserCreatedCurrentChat(chat.id);
+
+  const handleDeleteChat = () => {
+    onDelete(chat.id);
+  };
 
   const onPressFunction = () => {
     navigateToScreen("Chat", { chatId: chat.id, chatName: chat.chatName });
@@ -30,6 +38,7 @@ export const ChatListItem = ({ chat }: ChatListItemProps) => {
           </Text>
           <Text>Some Message</Text>
         </View>
+        {isUserCreatedChat && <DeleteIcon onPress={handleDeleteChat} />}
       </View>
     </Pressable>
   );

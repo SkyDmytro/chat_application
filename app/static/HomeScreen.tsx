@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, ScrollView } from "react-native";
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import { chatType, messageType } from "../core/types/chatTypes";
 import { userType } from "../core/types/userTypes";
@@ -10,6 +10,7 @@ import { AppDispatch, RootState } from "../core/store";
 import { addChat, initializeChats } from "../core/reduxSlices/chatsSlice";
 import { addUser, initializeUsers } from "../core/reduxSlices/usersSlice";
 import { AvatarIcon } from "../shared/AvatarIcon";
+import { CreateChatButton } from "../shared/CreateChatButton";
 
 interface HomeScreenProps {
   navigation: NavigationProp<ParamListBase>;
@@ -75,7 +76,60 @@ const chats: chatType[] = [
       messageFromUser3,
     ],
   },
+  {
+    chatName: "fifth Chat",
+    id: "5",
+    participants: [user1, user2],
+    creator: user1,
+    messages: [],
+  },
+  {
+    chatName: "sixth Chat",
+    id: "6",
+    participants: [user1, user2],
+    creator: user1,
+    messages: [messageFromUser1, messageFromUser1],
+  },
+  {
+    chatName: "seventh Chat",
+    id: "7",
+    participants: [user1, user2],
+    creator: user2,
+    messages: [messageFromUser1, messageFromUser1],
+  },
+  {
+    chatName: "eighth Chat",
+    id: "8",
+    participants: [user1, user3],
+    creator: user3,
+    messages: [
+      messageFromUser1,
+      messageFromUser1,
+      messageFromUser3,
+      messageFromUser1,
+      messageFromUser1,
+      messageFromUser3,
+      messageFromUser1,
+      messageFromUser1,
+      messageFromUser3,
+    ],
+  },
+  {
+    chatName: "ninth Chat",
+    id: "9",
+    participants: [user2, user3],
+    creator: user2,
+    messages: [],
+  },
+  {
+    chatName: "tenth Chat",
+    id: "10",
+    participants: [user1, user3],
+    creator: user1,
+    messages: [messageFromUser1],
+  },
 ];
+
 const HomeScreen = ({ navigation }: HomeScreenProps) => {
   const dispatch: AppDispatch = useDispatch();
   dispatch(initializeUsers([user1, user2]));
@@ -91,7 +145,10 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
         <SearchBar onFilterChats={setFilteredChats} chats={chats} />
         <AvatarIcon text={currentUserName} onPress={() => console.log(1321)} />
       </View>
-      <ChatList chats={filteredChats} />
+      <ScrollView bounces={false}>
+        <ChatList chats={filteredChats} />
+      </ScrollView>
+      <CreateChatButton onPress={() => {}} />
     </View>
   );
 };

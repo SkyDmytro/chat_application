@@ -8,10 +8,15 @@ interface chatList {
 }
 
 export const ChatList = ({ chats }: chatList) => {
+  const handleDeleteChat = (chatId: string) => {
+    console.log(chatId);
+  };
   return (
     <View style={styles.container}>
       {chats.map((chat: chatType) => {
-        return <ChatListItem chat={chat} key={chat.id} />;
+        return (
+          <ChatListItem onDelete={handleDeleteChat} chat={chat} key={chat.id} />
+        );
       })}
     </View>
   );
