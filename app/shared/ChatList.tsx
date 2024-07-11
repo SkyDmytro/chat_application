@@ -2,14 +2,18 @@ import React from "react";
 import { chatType } from "../core/types/chatTypes";
 import { View, StyleSheet } from "react-native";
 import { ChatListItem } from "./ChatListItem";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../core/store";
+import { deleteChat } from "../core/reduxSlices/chatsSlice";
 
 interface chatList {
   chats: chatType[];
 }
 
 export const ChatList = ({ chats }: chatList) => {
+  const dispatch: AppDispatch = useDispatch();
   const handleDeleteChat = (chatId: string) => {
-    console.log(chatId);
+    dispatch(deleteChat(chatId));
   };
   return (
     <View style={styles.container}>

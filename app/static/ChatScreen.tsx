@@ -1,13 +1,21 @@
 import { RouteProp } from "@react-navigation/native";
-import React from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { View, Text, StyleSheet, TextInput, Pressable } from "react-native";
 import { RootStackParamList } from "../../App";
 import { useIsUserConnectedToChat } from "../core/hooks/useIsUserConnectedToChat";
 import { UserConnectedToChatComponent } from "../shared/UserConnectedToChatComponent";
 import { UserIsntConnectedToChatComponent } from "../shared/UserIsntConnectedToChatComponent";
-import { useSelector } from "react-redux";
-import { RootState } from "../core/store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../core/store";
 import { useGetMessagesFromChatByChatId } from "../core/hooks/useGetMessagesFromChatByChatId";
+import { connectToChat } from "../core/reduxSlices/chatsSlice";
+import { messageType } from "../core/types/chatTypes";
 
 export type ChatScreenRouteProp = RouteProp<RootStackParamList, "Chat">;
 
@@ -16,14 +24,71 @@ interface ChatScreenProps {
 }
 const ChatScreen = ({ route }: ChatScreenProps) => {
   const { chatId } = route.params;
-  const isUserConnectedToCurrentChat = useIsUserConnectedToChat(chatId);
-  const messages = useGetMessagesFromChatByChatId(chatId);
+  const dispatch: AppDispatch = useDispatch();
+  const [messages, setMessages] = useState(
+    useGetMessagesFromChatByChatId(chatId)
+  );
+  const [isUserConnectedToCurrentChat, setIsUserConnectedToCurrentChat] =
+    useState(useIsUserConnectedToChat(chatId));
+
+  useEffect(() => {}, []);
+  const handleConnectToChat = () => {
+    dispatch(connectToChat(route.params.chatId));
+    setIsUserConnectedToCurrentChat(true);
+  };
+
+  var ws = useRef(new WebSocket("wss://ws.postman-echo.com/raw")).current;
+
+  const handleSend = (messageText: string) => {
+    ws.send(
+      JSON.stringify({
+        sender: { id: "3", username: "Valeriy" },
+        text: messageText,
+        timeWhenSended: 12321321,
+      })
+    );
+    setMessages((state) => [
+      {
+        sender: { id: "3", username: "Valeriy" },
+        text: messageText,
+        timeWhenSended: 12321321,
+      },
+      ...state,
+    ]);
+    console.log("send");
+  };
+
+  useEffect(() => {
+    ws.onopen = () => {
+      console.log(JSON.stringify("opened"));
+    };
+    ws.onclose = (e) => {
+      console.log("closed");
+    };
+    ws.onerror = (e: any) => {
+      console.log(e.message);
+    };
+    ws.onmessage = (e) => {
+      const { text, timeWhenSended }: messageType = JSON.parse(e.data);
+      setMessages((state) => [
+        { sender: { id: "1", username: "Dima" }, text, timeWhenSended },
+        ...state,
+      ]);
+    };
+    return () => {
+      ws.close();
+    };
+  }, []);
   return (
     <View style={styles.container}>
       {isUserConnectedToCurrentChat ? (
-        <UserConnectedToChatComponent chatId={chatId} messages={messages}/>
+        <UserConnectedToChatComponent
+          chatId={chatId}
+          messages={messages}
+          onSendMessage={handleSend}
+        />
       ) : (
-        <UserIsntConnectedToChatComponent />
+        <UserIsntConnectedToChatComponent onPress={handleConnectToChat} />
       )}
     </View>
   );

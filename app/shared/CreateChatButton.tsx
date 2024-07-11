@@ -4,16 +4,29 @@ import Icon from "react-native-vector-icons/Ionicons";
 
 interface CreateChatButtonProps {
   onPress: () => void;
+  isDialogOpened: boolean;
 }
 
-export const CreateChatButton = ({ onPress }: CreateChatButtonProps) => {
+export const CreateChatButton = ({
+  onPress,
+  isDialogOpened,
+}: CreateChatButtonProps) => {
   return (
     <Pressable
       style={({ pressed }) => [styles.button, pressed && styles.pressed]}
       onPress={onPress}
     >
-      <Icon name="add" size={24} color="#fff" />
-      <Text style={styles.text}>Add</Text>
+      {isDialogOpened ? (
+        <>
+          <Icon name="close" size={24} color="#fff" />
+          <Text style={styles.text}>Close</Text>
+        </>
+      ) : (
+        <>
+          <Icon name="add" size={24} color="#fff" />
+          <Text style={styles.text}>Add</Text>
+        </>
+      )}
     </Pressable>
   );
 };

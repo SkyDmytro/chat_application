@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Pressable, View, Text, StyleSheet } from "react-native";
 import { chatType } from "../core/types/chatTypes";
 import { useNavigationCustom } from "../core/hooks/useNavigationCustom";
@@ -16,6 +16,7 @@ interface ChatListItemProps {
 export const ChatListItem = ({ chat, onDelete }: ChatListItemProps) => {
   const { navigateToScreen } = useNavigationCustom();
   const isUserCreatedChat = useIsUserCreatedCurrentChat(chat.id);
+
   const lastMessage = useGetLastMessage(chat.id);
 
   const handleDeleteChat = () => {
