@@ -6,6 +6,7 @@ import { useNavigationCustom } from "../core/hooks/useNavigationCustom";
 import { AvatarIcon } from "./AvatarIcon";
 import { useIsUserCreatedCurrentChat } from "../core/hooks/useIsUserCreatedCurrentChat";
 import { DeleteIcon } from "./DeleteIconButton";
+import { useGetLastMessage } from "../core/hooks/useGetLastMessage";
 
 interface ChatListItemProps {
   chat: chatType;
@@ -15,6 +16,7 @@ interface ChatListItemProps {
 export const ChatListItem = ({ chat, onDelete }: ChatListItemProps) => {
   const { navigateToScreen } = useNavigationCustom();
   const isUserCreatedChat = useIsUserCreatedCurrentChat(chat.id);
+  const lastMessage = useGetLastMessage(chat.id);
 
   const handleDeleteChat = () => {
     onDelete(chat.id);
@@ -28,17 +30,21 @@ export const ChatListItem = ({ chat, onDelete }: ChatListItemProps) => {
     <Pressable onPress={onPressFunction}>
       <View style={styles.container}>
         <AvatarIcon text={chat.chatName} onPress={() => console.log(1321)} />
-        <View>
+        <View style={styles.content}>
           <Text style={styles.text}>
-            {chat.chatName +
-              " " +
-              chat.participants
-                .map((participant) => participant.username)
-                .join(", ")}
+            {
+              chat.chatName
+              // " " +
+              // chat.participants
+              //   .map((participant) => participant.username)
+              //   .join(", ")
+            }
           </Text>
-          <Text>Some Message</Text>
+          <Text>{lastMessage}</Text>
         </View>
-        {isUserCreatedChat && <DeleteIcon onPress={handleDeleteChat} />}
+        {isUserCreatedChat && (
+          <DeleteIcon style={styles.deleteIcon} onPress={handleDeleteChat} />
+        )}
       </View>
     </Pressable>
   );
@@ -46,14 +52,19 @@ export const ChatListItem = ({ chat, onDelete }: ChatListItemProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    display: "flex",
     flexDirection: "row",
-    gap: 15,
     alignItems: "center",
     borderRadius: 8,
     padding: 10,
   },
+  content: {
+    flex: 1,
+    marginLeft: 15,
+  },
   text: {
     fontSize: 24,
+  },
+  deleteIcon: {
+    marginLeft: "auto",
   },
 });

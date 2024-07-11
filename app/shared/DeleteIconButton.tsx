@@ -1,14 +1,14 @@
 import React from "react";
-import { TouchableOpacity } from "react-native";
+import { TouchableOpacity, TouchableOpacityProps } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 
-interface DeleteIconProps {
+type DeleteIconProps = {
   onPress: () => void;
-}
+} & TouchableOpacityProps;
 
-export const DeleteIcon = ({ onPress }: DeleteIconProps) => {
+export const DeleteIcon = ({ onPress, ...props }: DeleteIconProps) => {
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity onPress={onPress} {...props}>
       <Icon name="trash" size={24} color="gray" />
     </TouchableOpacity>
   );
