@@ -1,7 +1,7 @@
 import { Text, StyleSheet, View, ScrollView, FlatList } from "react-native";
 import React, { Component, useEffect, useRef } from "react";
 import { messageType } from "../core/types/chatTypes";
-import Message from "./Message";
+import { Message } from "./Message";
 import { useSelector } from "react-redux";
 import { RootState } from "../core/store";
 

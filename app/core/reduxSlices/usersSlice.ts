@@ -1,38 +1,37 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { userType } from "../types/userTypes";
+import { getUsers as getUsersApi } from "../api/usersApi";
 
 interface UserStateType {
   users: userType[];
+  isLoading: boolean;
 }
 const initialState: UserStateType = {
   users: [],
+  isLoading: false,
 };
+
+export const fetchUsers = createAsyncThunk("chats/getUsers", async () => {
+  const data = await getUsersApi();
+  return data;
+});
 
 const usersSlice = createSlice({
   name: "users",
   initialState,
-  reducers: {
-    addUser: (state, action: PayloadAction<userType>) => {
-      state.users.push(action.payload);
-    },
-    updateUser: (state, action: PayloadAction<userType>) => {
-      const index = state.users.findIndex(
-        (user) => user.id === action.payload.id
-      );
-      if (index !== -1) {
-        state.users[index] = action.payload;
-      }
-    },
-    removeUser: (state, action: PayloadAction<string>) => {
-      state.users = state.users.filter((user) => user.id !== action.payload);
-    },
-    initializeUsers: (state, action: PayloadAction<userType[]>) => {
-      state.users = action.payload;
-    },
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchUsers.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(fetchUsers.fulfilled, (state, action) => {
+        state.users = action.payload;
+        state.isLoading = false;
+      });
   },
 });
 
-export const { addUser, updateUser, removeUser, initializeUsers } =
-  usersSlice.actions;
+export const {} = usersSlice.actions;
 
 export default usersSlice.reducer;

@@ -1,5 +1,5 @@
 import { Text, TextInput, View, StyleSheet } from "react-native";
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import { MessageBlock } from "./MessageBlock";
 import { messageType } from "../core/types/chatTypes";
 import { MessageSendButton } from "./MessageSendButton";
@@ -7,21 +7,33 @@ import { MessageSendButton } from "./MessageSendButton";
 export const UserConnectedToChatComponent = ({
   chatId,
   messages,
+  onSendMessage,
 }: {
+  onSendMessage: (message: string) => void;
   chatId: string;
   messages: messageType[] | [];
 }) => {
+  const [inputText, setInputText] = useState(" ");
+  const handleTextChange = (text: string) => {
+    setInputText(text);
+  };
+  console.log(messages);
+  const handleSendMessage = () => {
+    onSendMessage(inputText);
+    setInputText("");
+  };
   return (
     <>
       <MessageBlock messages={messages} />
       <View style={styles.bottomPart}>
         <TextInput
+          value={inputText}
           style={styles.input}
           placeholder={"Write a message"}
-          onChangeText={() => "dsa"}
+          onChangeText={handleTextChange}
           placeholderTextColor="#888"
         />
-        <MessageSendButton onPress={() => {}} />
+        <MessageSendButton onPress={handleSendMessage} />
       </View>
     </>
   );

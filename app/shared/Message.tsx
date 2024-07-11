@@ -8,39 +8,61 @@ interface MessageProps {
   isCurrentUser: boolean;
 }
 
-const Message = ({ message, isCurrentUser }: MessageProps) => {
+export const Message = ({ message, isCurrentUser }: MessageProps) => {
   return (
     <View
       style={[
         styles.messageContainer,
-        isCurrentUser ? styles.currentUser : styles.otherUser,
+        isCurrentUser ? styles.currentUserPosition : styles.otherUserPosition,
       ]}
     >
       <AvatarIcon onPress={() => "12321"} text={message.sender.username} />
-      <Text>{message.sender.username}</Text>
-      <Text style={styles.messageText}>{message.text}</Text>
+      <View
+        style={[
+          isCurrentUser ? styles.currentUserColor : styles.otherUserColor,
+          styles.message,
+        ]}
+      >
+        {!isCurrentUser && (
+          <Text style={styles.messageHeader}>{message.sender.username}</Text>
+        )}
+        <Text style={styles.messageText}>{message.text}</Text>
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   messageContainer: {
-    marginVertical: 10,
-    padding: 10,
-    borderRadius: 5,
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
     maxWidth: "80%",
+    gap: 5,
+    margin: 10,
   },
-  currentUser: {
+  currentUserPosition: {
     alignSelf: "flex-end",
-    backgroundColor: "#DCF8C6",
   },
-  otherUser: {
+  currentUserColor: {
+    backgroundColor: "skyblue",
+  },
+  otherUserPosition: {
     alignSelf: "flex-start",
+  },
+  otherUserColor: {
     backgroundColor: "#ECECEC",
+  },
+  message: {
+    padding: 10,
+    marginVertical: 10,
+    borderRadius: 5,
+  },
+  messageHeader: {
+    fontSize: 18,
+    fontWeight: "bold",
   },
   messageText: {
     fontSize: 16,
   },
 });
-
-export default Message;

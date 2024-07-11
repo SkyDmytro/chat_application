@@ -1,14 +1,18 @@
 import { Pressable, Text, View, StyleSheet } from "react-native";
 import React, { Component } from "react";
-
-export const UserIsntConnectedToChatComponent = () => {
+interface UserIsntConnectedToChatComponentProps {
+  onPress: () => void;
+}
+export const UserIsntConnectedToChatComponent = ({
+  onPress,
+}: UserIsntConnectedToChatComponentProps) => {
   return (
     <>
       <View style={styles.textContainer}>
         <Text style={styles.text}>Connect to read messages</Text>
       </View>
       <View style={styles.bottomPart}>
-        <Pressable style={styles.bottomPartConnectButton}>
+        <Pressable onPress={onPress} style={styles.bottomPartConnectButton}>
           <Text style={styles.bottomPartText}>Connect to chat</Text>
         </Pressable>
       </View>
