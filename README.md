@@ -1,6 +1,6 @@
 ## _Chat application_
 
-![alt text](image-1.png)
+![alt text](app/assets/image-1.png)
 
 Як працює:
 
@@ -8,8 +8,8 @@
 
   1. Натиснути кнопку "Add" знизу екрана.
 
-  ![alt text](image.png)
   2. Після відкриття діалогового вікна, вписати назву чату і натиснути додати (доданий чат завжди буде з назвою "New chat").
+  ![alt text](app/assets/image-2.png)
 
   -Щоб видалити чат:
 
@@ -20,7 +20,7 @@
   1. Зайти в чат.
   2. Натиснути "Connect to chat" (краще за все підключатись до чату 1).
 
-  ![alt text](image-2.png)
+  ![alt text](app/assets/image-3.png)
   
   -Відправка повідомлень:
 
