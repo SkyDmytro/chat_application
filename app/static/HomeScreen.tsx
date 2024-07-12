@@ -1,5 +1,5 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { Text, View, StyleSheet, ScrollView } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, StyleSheet, ScrollView } from "react-native";
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleDialogWindow } from "../core/reduxSlices/uiSlice";
@@ -35,7 +35,7 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
     isLoading: isChatsLoading,
     error,
   } = useSelector((state: RootState) => state.chats);
-  const { users, isLoading: isUsersLoading } = useSelector(
+  const { isLoading: isUsersLoading } = useSelector(
     (state: RootState) => state.users
   );
   const isDialogOpened = useSelector(
@@ -49,10 +49,6 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
 
   const handleOpenDialog = () => {
     dispatch(toggleDialogWindow());
-  };
-
-  const handleAddNewChat = (chatName: string) => {
-    dispatch(addChat(chatName));
   };
 
   if (isChatsLoading || isUsersLoading) {
