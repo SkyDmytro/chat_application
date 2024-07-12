@@ -1,4 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { RootState } from "../store";
 import { chatType } from "../types/chatTypes";
 import {
   getChats as getChatsApi,
@@ -6,9 +8,6 @@ import {
   connectToChat as connectToChatApi,
   deleteChat as deleteChatApi,
 } from "../api/chatsApi";
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { userType } from "../types/userTypes";
-import { RootState } from "../store";
 
 interface ChatsState {
   chats: chatType[];

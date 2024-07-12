@@ -6,16 +6,16 @@ import React, {
   useRef,
   useState,
 } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { View, Text, StyleSheet, TextInput, Pressable } from "react-native";
 import { RootStackParamList } from "../../App";
 import { useIsUserConnectedToChat } from "../core/hooks/useIsUserConnectedToChat";
-import { UserConnectedToChatComponent } from "../shared/UserConnectedToChatComponent";
-import { UserIsntConnectedToChatComponent } from "../shared/UserIsntConnectedToChatComponent";
-import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../core/store";
 import { useGetMessagesFromChatByChatId } from "../core/hooks/useGetMessagesFromChatByChatId";
 import { connectToChat } from "../core/reduxSlices/chatsSlice";
 import { messageType } from "../core/types/chatTypes";
+import { UserConnectedToChatComponent } from "../shared/UserConnectedToChatComponent";
+import { UserIsntConnectedToChatComponent } from "../shared/UserIsntConnectedToChatComponent";
 
 export type ChatScreenRouteProp = RouteProp<RootStackParamList, "Chat">;
 
@@ -40,33 +40,18 @@ const ChatScreen = ({ route }: ChatScreenProps) => {
   var ws = useRef(new WebSocket("wss://ws.postman-echo.com/raw")).current;
 
   const handleSend = (messageText: string) => {
-    ws.send(
-      JSON.stringify({
-        sender: { id: "3", username: "Valeriy" },
-        text: messageText,
-        timeWhenSended: 12321321,
-      })
-    );
-    setMessages((state) => [
-      {
-        sender: { id: "3", username: "Valeriy" },
-        text: messageText,
-        timeWhenSended: 12321321,
-      },
-      ...state,
-    ]);
-    console.log("send");
+    const newMessage = {
+      sender: { id: "3", username: "Valeriy" },
+      text: messageText,
+      timeWhenSended: 12321321,
+    };
+    ws.send(JSON.stringify(newMessage));
+    setMessages((state) => [newMessage, ...state]);
   };
 
   useEffect(() => {
-    ws.onopen = () => {
-      console.log(JSON.stringify("opened"));
-    };
-    ws.onclose = (e) => {
-      console.log("closed");
-    };
     ws.onerror = (e: any) => {
-      console.log(e.message);
+      console.error(e.message);
     };
     ws.onmessage = (e) => {
       const { text, timeWhenSended }: messageType = JSON.parse(e.data);

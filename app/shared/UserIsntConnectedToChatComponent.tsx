@@ -13,7 +13,9 @@ export const UserIsntConnectedToChatComponent = ({
       </View>
       <View style={styles.bottomPart}>
         <Pressable onPress={onPress} style={styles.bottomPartConnectButton}>
-          <Text style={styles.bottomPartText}>Connect to chat</Text>
+          <Text style={[styles.bottomPartText, styles.decoratedText]}>
+            Connect to chat
+          </Text>
         </Pressable>
       </View>
     </>
@@ -45,5 +47,9 @@ const styles = StyleSheet.create({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+  },
+  decoratedText: {
+    textDecorationLine: "underline",
+    color: "blue",
   },
 });

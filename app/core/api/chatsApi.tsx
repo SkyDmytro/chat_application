@@ -1,4 +1,3 @@
-import { chatType } from "../types/chatTypes";
 import { userType } from "../types/userTypes";
 
 const URL = process.env.EXPO_PUBLIC_BASE_URL;

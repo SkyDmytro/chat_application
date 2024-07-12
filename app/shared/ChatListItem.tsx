@@ -1,12 +1,11 @@
 import React, { useEffect } from "react";
 import { Pressable, View, Text, StyleSheet } from "react-native";
-import { chatType } from "../core/types/chatTypes";
 import { useNavigationCustom } from "../core/hooks/useNavigationCustom";
-
-import { AvatarIcon } from "./AvatarIcon";
 import { useIsUserCreatedCurrentChat } from "../core/hooks/useIsUserCreatedCurrentChat";
-import { DeleteIcon } from "./DeleteIconButton";
 import { useGetLastMessage } from "../core/hooks/useGetLastMessage";
+import { chatType } from "../core/types/chatTypes";
+import { AvatarIcon } from "./AvatarIcon";
+import { DeleteIcon } from "./DeleteIconButton";
 
 interface ChatListItemProps {
   chat: chatType;
@@ -32,15 +31,7 @@ export const ChatListItem = ({ chat, onDelete }: ChatListItemProps) => {
       <View style={styles.container}>
         <AvatarIcon text={chat.chatName} onPress={() => console.log(1321)} />
         <View style={styles.content}>
-          <Text style={styles.text}>
-            {
-              chat.chatName
-              // " " +
-              // chat.participants
-              //   .map((participant) => participant.username)
-              //   .join(", ")
-            }
-          </Text>
+          <Text style={styles.text}>{chat.chatName}</Text>
           <Text>{lastMessage}</Text>
         </View>
         {isUserCreatedChat && (

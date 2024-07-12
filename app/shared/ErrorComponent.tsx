@@ -1,5 +1,6 @@
 import React from "react";
-import { View, Text, Button, StyleSheet } from "react-native";
+import { View, Text, Button, StyleSheet, Pressable } from "react-native";
+import { useNavigationCustom } from "../core/hooks/useNavigationCustom";
 
 interface ErrorScreenProps {
   errorMessage: string;
@@ -7,9 +8,18 @@ interface ErrorScreenProps {
 }
 
 export const ErrorScreen = ({ errorMessage }: ErrorScreenProps) => {
+  const { navigateToScreen } = useNavigationCustom();
+
+  const navigateOnHomePage = () => {
+    navigateToScreen("Home");
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.errorText}>{errorMessage}</Text>
+      <Pressable onPress={navigateOnHomePage}>
+        <Text style={styles.navigationText}>Home</Text>
+      </Pressable>
     </View>
   );
 };
@@ -26,5 +36,9 @@ const styles = StyleSheet.create({
     color: "red",
     marginBottom: 20,
     textAlign: "center",
+  },
+  navigationText: {
+    color: "blue",
+    textDecorationLine: "underline",
   },
 });
