@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "../core/store";
 import { addChat } from "../core/reduxSlices/chatsSlice";
 import { toggleDialogWindow } from "../core/reduxSlices/uiSlice";
+
 const { width, height } = Dimensions.get("window");
 
 export const AddChatDialogWindow = () => {
@@ -24,6 +25,7 @@ export const AddChatDialogWindow = () => {
       setChatName("");
     }
   };
+
   return (
     <View style={styles.dialogContainer}>
       <Text style={styles.text}>Write the name of chat </Text>

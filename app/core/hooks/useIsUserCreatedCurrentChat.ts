@@ -1,4 +1,3 @@
-import React from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
 
@@ -7,6 +6,7 @@ export const useIsUserCreatedCurrentChat = (chatId: string) => {
   const currentUserId = useSelector(
     (state: RootState) => state.settings.currentUserId
   );
+
   const currentChat = chats.find((chat) => chat.id === chatId);
   return currentChat?.creator.id === currentUserId;
 };

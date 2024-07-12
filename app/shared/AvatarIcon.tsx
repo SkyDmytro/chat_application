@@ -12,12 +12,12 @@ export const AvatarIcon = ({ onPress, text, ...props }: AvatarIconProps) => {
     const initials = names.map((name) => name.charAt(0)).join("");
     return initials.toUpperCase();
   };
+
   return (
     <Avatar
       rounded
       title={getInitials(text)}
       size="medium"
-      // icon={{ name: "user", type: "font-awesome" }}
       overlayContainerStyle={{ backgroundColor: "#ccc" }}
       onPress={onPress}
       activeOpacity={0.7}

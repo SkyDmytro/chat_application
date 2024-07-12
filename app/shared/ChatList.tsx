@@ -1,8 +1,8 @@
 import React from "react";
-import { chatType } from "../core/types/chatTypes";
 import { View, StyleSheet } from "react-native";
-import { ChatListItem } from "./ChatListItem";
 import { useDispatch } from "react-redux";
+import { chatType } from "../core/types/chatTypes";
+import { ChatListItem } from "./ChatListItem";
 import { AppDispatch } from "../core/store";
 import { deleteChat } from "../core/reduxSlices/chatsSlice";
 

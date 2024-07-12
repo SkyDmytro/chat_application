@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, TextInput, StyleSheet } from "react-native";
-import { FontAwesome } from "@expo/vector-icons"; // Импортируем FontAwesome
+import { FontAwesome } from "@expo/vector-icons";
 import { chatType } from "../core/types/chatTypes";
 
 interface SearchBarProps {

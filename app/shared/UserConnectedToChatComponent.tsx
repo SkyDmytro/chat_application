@@ -17,7 +17,6 @@ export const UserConnectedToChatComponent = ({
   const handleTextChange = (text: string) => {
     setInputText(text);
   };
-  console.log(messages);
   const handleSendMessage = () => {
     onSendMessage(inputText);
     setInputText("");

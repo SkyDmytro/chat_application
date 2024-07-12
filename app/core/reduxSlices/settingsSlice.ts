@@ -1,6 +1,4 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { chatType } from "../types/chatTypes";
-import { userType } from "../types/userTypes";
 
 interface SettingsState {
   currentUserId: string;
