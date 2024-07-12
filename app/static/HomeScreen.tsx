@@ -13,7 +13,7 @@ import { AvatarIcon } from "../shared/AvatarIcon";
 import { AddChatButton } from "../shared/AddChatButton";
 import { AddChatDialogWindow } from "../shared/AddChatDialogWindow";
 import { LoadingSpinner } from "../shared/LoadingSpinner";
-import { ErrorScreen } from "../shared/ErrorComponent";
+import { ErrorComponent } from "../shared/ErrorComponent";
 
 interface HomeScreenProps {
   navigation: NavigationProp<ParamListBase>;
@@ -55,7 +55,7 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
     return <LoadingSpinner />;
   }
   if (error) {
-    return <ErrorScreen errorMessage="Something went wrong" />;
+    return <ErrorComponent errorMessage="Something went wrong" />;
   }
 
   return (

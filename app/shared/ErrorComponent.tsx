@@ -7,7 +7,7 @@ interface ErrorScreenProps {
   onRetry?: () => void;
 }
 
-export const ErrorScreen = ({ errorMessage }: ErrorScreenProps) => {
+export const ErrorComponent = ({ errorMessage }: ErrorScreenProps) => {
   const { navigateToScreen } = useNavigationCustom();
 
   const navigateOnHomePage = () => {
