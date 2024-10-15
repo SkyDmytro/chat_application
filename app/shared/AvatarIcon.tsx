@@ -1,5 +1,6 @@
 import React from "react";
 import { Avatar, AvatarProps } from "react-native-elements";
+import { getRandomAvatar } from "../helpers/functions";
 
 type AvatarIconProps = {
   onPress: () => void;
@@ -7,16 +8,17 @@ type AvatarIconProps = {
 } & AvatarProps;
 
 export const AvatarIcon = ({ onPress, text, ...props }: AvatarIconProps) => {
-  const getInitials = (text: string) => {
-    const names = text.split(" ");
-    const initials = names.map((name) => name.charAt(0)).join("");
-    return initials.toUpperCase();
-  };
+  const avatar = getRandomAvatar();
+  // const getInitials = (text: string) => {
+  //   const names = text.split(" ");
+  //   const initials = names.map((name) => name.charAt(0)).join("");
+  //   return initials.toUpperCase();
+  // };
 
   return (
     <Avatar
       rounded
-      title={getInitials(text)}
+      source={{ uri: avatar }}
       size="medium"
       overlayContainerStyle={{ backgroundColor: "#ccc" }}
       onPress={onPress}

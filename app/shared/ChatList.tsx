@@ -17,7 +17,7 @@ export const ChatList = ({ chats }: chatList) => {
   };
   return (
     <View style={styles.container}>
-      {chats.map((chat: chatType) => {
+      {chats.map((chat: chatType, index: number) => {
         return (
           <ChatListItem onDelete={handleDeleteChat} chat={chat} key={chat.id} />
         );
